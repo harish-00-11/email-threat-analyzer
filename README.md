@@ -318,14 +318,6 @@ Threat Score Generation
 Security Recommendations
 ```
 
----
-
-# 🎥 Demo
-
-![ThreatScan Demo](./screenshots/demo.gif)
-
----
-
 # 🌐 Browser Compatibility
 
 | Browser        | Support    |
