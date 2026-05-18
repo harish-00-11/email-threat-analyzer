@@ -515,5 +515,3 @@ It should not be solely relied upon for enterprise-grade email security decision
 
 Always validate critical findings with additional security tools and human review.
 
-```
-```
