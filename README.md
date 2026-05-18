@@ -1,19 +1,24 @@
-# Email & URL Threat Analyzer
 
-An AI-powered security tool that scans emails and URLs for phishing signals, lookalike domains, alarming language, and harmful patterns — built with React, Vite, and the Anthropic Claude API.
+# ThreatScan: Gmail AI Security Extension
 
-![ThreatScan Screenshot](https://via.placeholder.com/900x500/0a0e1a/22c55e?text=ThreatScan+Screenshot)
+An AI-powered Chrome Extension that integrates directly into Gmail to scan unread emails, attachments, and URLs for phishing signals, lookalike domains, alarming language, and harmful patterns — built with React, Vite, and the Anthropic Claude API.
 
-## Features
+---
 
-- **Email analysis** — paste full email content (headers, body, links) to detect phishing patterns, spoofed senders, urgency tactics, and social engineering
-- **URL scanning** — detect lookalike domains, suspicious redirect patterns, brand impersonation, and known malicious URL structures
-- **Threat scoring** — AI-generated 0–100 threat score with verdict (Clean → Critical Threat)
-- **Detailed findings** — severity-categorized findings with specific evidence from the input
-- **Actionable recommendations** — concrete next steps for each scan
-- **Example inputs** — built-in phishing, legitimate, and promotional examples to try instantly
+## ✨ Features
 
-## Threat Score Levels
+- **Live Inbox Integration** — instantly extract and scan all unread email rows currently visible in your Gmail inbox.
+- **Attachment Scanning** — injects a secure "🔍 Scan File" button directly next to Gmail attachments to analyze context without downloading.
+- **Manual Email & URL Analysis** — paste raw email content, headers, or suspicious URLs directly into the extension panel.
+- **Threat Scoring** — AI-generated 0–100 threat score with a severity verdict (Clean → Critical Threat).
+- **Detailed Findings** — categorized findings with supporting evidence from scanned content.
+- **Actionable Recommendations** — concrete, step-by-step security advice based on detected threats.
+- **Modern UI** — lightweight popup interface optimized for Gmail workflows.
+- **Example Inputs** — built-in phishing and legitimate examples for instant testing.
+
+---
+
+## 📊 Threat Score Levels
 
 | Score | Verdict |
 |---|---|
@@ -23,86 +28,492 @@ An AI-powered security tool that scans emails and URLs for phishing signals, loo
 | 66–85 | 🟠 High Risk |
 | 86–100 | 🔴 Critical Threat |
 
-## Tech Stack
+---
 
-- **React 18** + **Vite 5** — fast, modern frontend
-- **Anthropic Claude API** (`claude-sonnet-4-20250514`) — AI threat analysis
-- **CSS Modules** — scoped, maintainable styles
-- **IBM Plex Mono** + **Syne** — purpose-built font pairing
-- **Tabler Icons** — consistent icon set
+## 🛠️ Tech Stack
 
-## Getting Started
+- **React 18** + **Vite 5** — fast, modern frontend framework
+- **CRXJS Vite Plugin** — Chrome Extension bundling support
+- **Anthropic Claude API** (`claude-sonnet-4-20250514`) — advanced AI threat analysis
+- **CSS Modules** — scoped and maintainable styling
+- **Tabler Icons** — consistent icon system
+- **Chrome Extension APIs** — Gmail content interaction and injection
 
-### Prerequisites
+---
+
+# 🚀 Local Development & Setup
+
+## 📋 Prerequisites
 
 - Node.js 18+
-- An [Anthropic API key](https://console.anthropic.com)
+- Google Chrome or Chromium-based browser
+- Anthropic API Key
 
-### Installation
+Get your API key from:
+
+https://console.anthropic.com
+
+---
+
+# 📦 Installation
 
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/email-url-threat-analyzer.git
+
+# Navigate into the project
 cd email-url-threat-analyzer
 
 # Install dependencies
-npm install
+# NOTE:
+# --legacy-peer-deps is required because
+# CRXJS and Vite versions may trigger peer warnings
+npm install --legacy-peer-deps
+````
 
-# Configure environment
-cp .env.example .env
-# Edit .env and add your VITE_ANTHROPIC_API_KEY
+---
 
-# Start the dev server
-npm run dev
+# 🔑 Configure Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_ANTHROPIC_API_KEY=your_anthropic_api_key_here
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+OR:
 
-### Build for production
+```bash
+cp .env.example .env
+```
+
+Then edit:
+
+```env
+VITE_ANTHROPIC_API_KEY=your_api_key
+```
+
+---
+
+# 🏗️ Build the Extension
+
+Chrome Extensions require a production build.
+
+Run:
 
 ```bash
 npm run build
-npm run preview
 ```
 
-## Project Structure
+After completion, a `dist/` folder will be generated.
 
-```
-src/
-├── components/
-│   ├── ThreatAnalyzer.jsx      # Main orchestrator component
-│   ├── InputPanel.jsx          # Email/URL input with examples
-│   ├── ScanProgress.jsx        # Animated scan step indicator
-│   └── ThreatResults.jsx       # Score gauge, findings, recommendations
-├── hooks/
-│   └── useAnalysis.js          # Analysis state management hook
-├── utils/
-│   ├── analyzeThreats.js       # Anthropic API call + prompt
-│   └── constants.js            # Examples, scan steps, severity config
-├── App.jsx                     # Layout, header, footer
-└── index.css                   # Global CSS variables & reset
+---
+
+# 🌐 Load Extension into Chrome
+
+## Step 1 — Open Extensions Page
+
+Navigate to:
+
+```text
+chrome://extensions/
 ```
 
-## Security Note
+---
 
-This tool uses the Anthropic API **directly from the browser** via `VITE_ANTHROPIC_API_KEY`. This is fine for local development and personal use, but for production deployment you should:
+## Step 2 — Enable Developer Mode
 
-1. Create a backend proxy (Node.js/Express, Next.js API route, etc.) that holds the API key server-side
-2. Have your frontend call your proxy instead of the Anthropic API directly
-3. Add rate limiting and authentication to your proxy
+Toggle:
 
-Never commit your `.env` file or expose your API key publicly.
+```text
+Developer Mode → ON
+```
 
-## Environment Variables
+(top-right corner)
 
-| Variable | Description |
-|---|---|
-| `VITE_ANTHROPIC_API_KEY` | Your Anthropic API key from [console.anthropic.com](https://console.anthropic.com) |
+---
 
-## Contributing
+## Step 3 — Load the Extension
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
+Click:
 
-## License
+```text
+Load unpacked
+```
 
-MIT
+Then select:
+
+```text
+dist/
+```
+
+folder from your project.
+
+---
+
+## Step 4 — Pin the Extension
+
+Optional but recommended:
+
+* Click Extensions icon
+* Pin ThreatScan
+
+---
+
+# 🧪 How to Use
+
+---
+
+## 📥 Inbox Scan
+
+1. Open Gmail
+2. Ensure unread emails are visible
+3. Open ThreatScan popup
+4. Click:
+
+```text
+Scan Unread Inbox Rows
+```
+
+ThreatScan will:
+
+* Extract visible unread emails
+* Analyze phishing indicators
+* Generate threat scores
+* Display recommendations
+
+---
+
+## 📎 Attachment Scan
+
+1. Open an email containing attachments
+2. ThreatScan injects:
+
+```text
+🔍 Scan File
+```
+
+button beside the attachment.
+
+3. Click the button to analyze attachment context.
+
+---
+
+## 🔗 URL Scan
+
+Paste:
+
+* suspicious URLs
+* shortened links
+* redirect URLs
+* spoofed domains
+
+into the analyzer panel.
+
+ThreatScan checks for:
+
+* lookalike domains
+* phishing structures
+* suspicious redirects
+* malicious patterns
+
+---
+
+## ✉️ Manual Email Analysis
+
+Paste:
+
+* raw email headers
+* sender info
+* email body
+* suspicious messages
+
+ThreatScan analyzes:
+
+* spoofing attempts
+* urgency language
+* impersonation
+* social engineering
+* malicious intent
+
+---
+
+# 📂 Project Structure
+
+```text
+email-url-threat-analyzer/
+│
+├── public/
+│   ├── manifest.json
+│   └── icon.png
+│
+├── screenshots/
+│   ├── dashboard.png
+│   ├── inbox-scan.png
+│   ├── attachment-scan.png
+│   └── demo.gif
+│
+├── src/
+│   ├── components/
+│   │   ├── ThreatAnalyzer.jsx
+│   │   ├── InputPanel.jsx
+│   │   ├── ScanProgress.jsx
+│   │   └── ThreatResults.jsx
+│   │
+│   ├── hooks/
+│   │   └── useAnalysis.js
+│   │
+│   ├── utils/
+│   │   ├── analyzeThreats.js
+│   │   └── constants.js
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── content.js
+│
+├── .env.example
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+# 🔐 Chrome Extension Permissions
+
+ThreatScan requires the following permissions:
+
+| Permission         | Purpose                        |
+| ------------------ | ------------------------------ |
+| `activeTab`        | Access the active Gmail tab    |
+| `tabs`             | Detect Gmail tabs              |
+| `scripting`        | Inject attachment scan buttons |
+| `storage`          | Save local preferences/history |
+| `host_permissions` | Access `mail.google.com`       |
+
+ThreatScan does NOT:
+
+* sell user data
+* track browsing history
+* collect analytics
+* store emails remotely
+
+---
+
+# 🏗️ Architecture Flow
+
+```text
+Gmail Inbox
+     ↓
+Content Script Injection
+     ↓
+Email / URL Extraction
+     ↓
+Threat Parsing Engine
+     ↓
+Claude AI Analysis
+     ↓
+Threat Score Generation
+     ↓
+Security Recommendations
+```
+
+---
+
+# 🎥 Demo
+
+![ThreatScan Demo](./screenshots/demo.gif)
+
+---
+
+# 🌐 Browser Compatibility
+
+| Browser        | Support    |
+| -------------- | ---------- |
+| Google Chrome  | ✅          |
+| Brave          | ✅          |
+| Microsoft Edge | ✅          |
+| Opera          | ✅          |
+| Firefox        | ⚠️ Planned |
+
+---
+
+# 🔒 Privacy
+
+ThreatScan processes email and URL content strictly for threat analysis purposes.
+
+## Privacy Principles
+
+* No user data stored remotely
+* No tracking scripts
+* No telemetry
+* No analytics
+* No email resale or sharing
+* Analysis only sent to configured AI provider
+
+For maximum privacy:
+
+* Use a self-hosted backend proxy
+* Avoid direct browser API keys in production
+
+---
+
+# ⚠️ Security Note
+
+This extension currently uses:
+
+```text
+VITE_ANTHROPIC_API_KEY
+```
+
+directly from the browser extension.
+
+This is acceptable for:
+
+* local development
+* testing
+* personal use
+
+However:
+
+❌ DO NOT publish publicly in this form.
+
+Anyone can inspect extension traffic and potentially extract your API key.
+
+---
+
+# ✅ Recommended Production Architecture
+
+## Use a Backend Proxy
+
+Recommended options:
+
+* Node.js + Express
+* Next.js API Routes
+* Cloudflare Workers
+* FastAPI
+* AWS Lambda
+
+---
+
+## Production Flow
+
+```text
+Chrome Extension
+      ↓
+Secure Backend Proxy
+      ↓
+Anthropic API
+```
+
+---
+
+## Additional Production Security
+
+Add:
+
+* authentication
+* rate limiting
+* logging
+* abuse prevention
+* encrypted secrets management
+
+---
+
+# 📁 Recommended .gitignore
+
+```gitignore
+node_modules
+dist
+.env
+.vscode
+.DS_Store
+```
+
+---
+
+# 🧭 Roadmap
+
+* [ ] Outlook integration
+* [ ] Real-time URL auto scanning
+* [ ] VirusTotal integration
+* [ ] PDF OCR scanning
+* [ ] AI attachment classification
+* [ ] SIEM export support
+* [ ] Offline LLM support
+* [ ] Enterprise dashboard
+* [ ] Threat intelligence feeds
+* [ ] SOC alert workflows
+
+---
+
+# 🏷️ Topics
+
+```text
+cybersecurity
+phishing-detection
+chrome-extension
+gmail-extension
+email-security
+url-scanner
+threat-intelligence
+soc-analyst
+ai-security
+claude-api
+react
+vite
+```
+
+---
+
+# 🤝 Contributing
+
+Pull requests are welcome.
+
+For major changes:
+
+1. Open an issue
+2. Discuss proposed changes
+3. Submit PR after approval
+
+Contributions are welcome for:
+
+* Outlook support
+* Better phishing heuristics
+* Threat intelligence integrations
+* UI improvements
+* Detection optimizations
+
+---
+
+# 📄 License
+
+MIT License
+
+---
+
+# ⭐ Acknowledgements
+
+* Anthropic Claude API
+* React Team
+* Vite
+* CRXJS
+* Tabler Icons
+* Open-source cybersecurity community
+
+---
+
+# ⚡ Disclaimer
+
+ThreatScan is designed for:
+
+* educational purposes
+* research
+* defensive cybersecurity workflows
+
+It should not be solely relied upon for enterprise-grade email security decisions.
+
+Always validate critical findings with additional security tools and human review.
+
+```
+```
