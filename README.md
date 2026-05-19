@@ -84,7 +84,7 @@ VITE_ANTHROPIC_API_KEY=your_anthropic_api_key_here
 OR:
 
 ```bash
-cp .env.example .env
+copy .env.example .env
 ```
 
 Then edit:
