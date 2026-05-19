@@ -366,12 +366,6 @@ This is acceptable for:
 * testing
 * personal use
 
-However:
-
-❌ DO NOT publish publicly in this form.
-
-Anyone can inspect extension traffic and potentially extract your API key.
-
 ---
 
 # ✅ Recommended Production Architecture
