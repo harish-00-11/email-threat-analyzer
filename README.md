@@ -59,7 +59,7 @@ https://console.anthropic.com
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/email-url-threat-analyzer.git
+git clone https://github.com/harish-00-11/email-url-threat-analyzer.git
 
 # Navigate into the project
 cd email-url-threat-analyzer
